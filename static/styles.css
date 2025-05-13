@@ -1,0 +1,113 @@
+/* Overall page styling */
+body {
+    background-color: #2c3e50;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Main Title */
+h1 {
+    margin: 20px 0;
+    font-size: 3rem;
+}
+
+/* Content Layout */
+.content-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns sensor to the left, video to the right */
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1400px; /* More space */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Sensor Readings Panel */
+.sensor-container {
+    width: 300px;
+    background-color: #39095e;
+    color: #ff6347;
+    border: 2px solid #ff6347;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    flex-shrink: 0; /* Ensures it does NOT resize */
+}
+
+/* Sensor Titles */
+.sensor-container h3 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Each sensor data row */
+.sensor-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #ff6347;
+}
+
+/* Last item – remove border */
+.sensor-data:last-child {
+    border-bottom: none;
+}
+
+.sensor-data h4 {
+    margin: 0;
+    font-size: 1rem;
+    flex: 1;
+}
+
+.sensor-data h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Light Control Buttons */
+.sensor-container button {
+    display: block;
+    width: 80%;
+    margin: 0.3rem auto;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #ff6347;
+    background-color: #2c3e50;
+    border: 2px solid #ff6347;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sensor-container button:hover {
+    background-color: #ff6347;
+    color: #2c3e50;
+}
+
+/* Video Container */
+.video-container {
+    flex-grow: 1; /* Ensures it takes remaining space */
+    overflow: hidden;
+}
+
+/* Video Stream */
+.video-container img {
+    display: block;
+    max-width: 1000px; /* Increase the max width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* Footer */
+footer {
+    margin-top: 30px;
+    color: #fff;
+    text-align: center;
+}

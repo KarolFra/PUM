@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Live Streaming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h1>ServiBOT - API</h1>
+    <div class="content-container">
+        <!-- Motor Control Block (Top) -->
+        <div class="motor-container">
+            <h3>Speed of motors (PWM)</h3>
+            <input type="range" min="0" max="255" value="128" id="fanSlider" oninput="updateFanSpeed(this.value)" />
+            <span id="fanValue">128</span>
+
+            <!-- Modal Popup for Stop Time -->
+            <div id="valueModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">×</span>
+                    <h2 id="modalTitle">Stop time</h2>
+                    <label for="valueInput">Seconds (0-180):</label>
+                    <input type="number" id="valueInput" min="0" max="180" value="100">
+                    <button onclick="saveValue()">Save</button>
+                    <button onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Buttons for switching control modes -->
+            <h3>ROBOT Control Mode</h3>
+            <button onclick="setControlMode('esp32')">Autonomous</button>
+            <button onclick="setControlMode('manual')">Manual Control</button>
+        </div>
+
+        <!-- Video Stream -->
+        <div class="video-container">
+            <h3>Video Stream</h3>
+            <img src="{{ url_for('video_bp.measured_video') }}" alt="Live Stream not available" />
+        </div>
+
+        <!-- Sensor Readings & Controls -->
+        <div class="sensor-container">
+            <h3>FEEDBACK</h3>
+            <div class="sensor-data">
+                <h4>Distance:</h4>
+                <h2 id="sensor-distance-value">Loading...</h2>
+            </div>
+
+            <h3>MANUAL CONTROL (unsigned buttons)</h3>
+		<h3> should be funcions to drive <h3>
+            <button onclick="setPWM(255)">Straight</button>
+            <button onclick="setPWM(0)">Reverse</button>
+            <button onclick="setPWM('default')">Left</button>
+            <button onclick="setPWM('default')">Right</button>
+
+            <div class="sensor-data">
+                <h4>Temperature near DC motor??:</h4>
+                <h2 id="sensor-temperature-value"><a href="/chart/temperature">Loading...</a></h2>
+            </div>
+
+            <!-- Combined Chart -->
+            <div class="sensor-data">
+                <h4>Chart/s??:</h4>
+                <h2><a href="/chart/combined">Previous temp&hum</a></h2>
+            </div>
+
+            <!-- RPi CPU Temperature -->
+            <div class="sensor-data">
+                <h4>RPi CPU Temperature:</h4>
+                <h2 id="rpi-temp-value">Loading...</h2>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Projektowanie Układów Mechatronicznych</p>
+    </footer>
+</body>
+</html>

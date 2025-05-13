@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Combined Chart (Dot Style)</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+  <div style="text-align: left; margin: 10px 0;">
+    <a href="/">Back to Home</a>
+  </div>
+<body>
+  <h1 style="text-align:center;">Combined chart temperature & humidity</h1>
+  <canvas id="combinedChart"></canvas>
+  <script>
+    const chartData = {{ chart_data|tojson }};
+    
+    const labels = chartData.timestamps;
+    const tempValues = chartData.temperature_values;
+    const humidityValues = chartData.humidity_values;
+
+    const ctx = document.getElementById('combinedChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'line',  // 'line' type, but we'll show only dots
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Temperature (\xb0C)',
+            data: tempValues,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderWidth: 1,
+
+            // Dot-only style:
+            fill: false,
+            showLine: false,
+            pointRadius: 1,
+            pointBackgroundColor: 'rgba(255, 99, 132, 1)'
+          },
+          {
+            label: 'Humidity (%)',
+            data: humidityValues,
+            borderColor: 'rgba(54, 162, 235, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderWidth: 1,
+
+            // Dot-only style:
+            fill: false,
+            showLine: false,
+            pointRadius: 1,
+            pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            // Single y-axis for both
+            beginAtZero: false,
+            title: {
+              display: true,
+              text: 'Value'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Timestamp'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

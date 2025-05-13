@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data_type.title() }} Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+  <div style="text-align: left; margin: 10px 0;">
+    <a href="/">Back to Home</a>
+  </div>
+<body>
+    <h1 style="text-align:center;">Temperature chart (DHT11)</h1>
+    <canvas id="chartCanvas"></canvas>
+    <script>
+        const chartData = {{ chart_data | tojson }};
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',  // still 'line', but no connecting lines
+            data: {
+                labels: chartData.timestamps,
+                datasets: [{
+                    label: '{{ data_type.title() }}',
+                    data: chartData.values,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+
+                    // === Dot Chart Settings ===
+                    fill: false,
+                    showLine: false,       // no connecting lines
+                    pointRadius: 1,        // size of each dot
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Timestamp"
+                        }
+                    },
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: "{{ data_type.title() }}"
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

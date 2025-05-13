@@ -1,0 +1,2 @@
+[console_scripts]
+aruco = aruco_markers.main:main

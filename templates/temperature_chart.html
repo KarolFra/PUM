@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Temperature Chart</h1>
+    <canvas id="temperatureChart"></canvas>
+
+    <script>
+        const chartData = {{ chart_data|tojson|safe }};
+        
+        if (!chartData || chartData.timestamps.length === 0) {
+            document.getElementById('temperatureChart').innerHTML = "<p>No Data Available</p>";
+        } else {
+            const ctx = document.getElementById('temperatureChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.timestamps,
+                    datasets: [{
+                        label: 'Temperature (°C)',
+                        data: chartData.temperature_values,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Temperature (°C)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <a href="/">Back to Home</a>
+</body>
+</html>
